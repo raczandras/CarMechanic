@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <None Remove="Images\Add.png" />
+    <None Remove="Images\Delete.png" />
+    <None Remove="Images\Edit.png" />
     <None Remove="Images\Jobs.png" />
   </ItemGroup>
 
@@ -17,6 +19,8 @@
 
   <ItemGroup>
     <Resource Include="Images\Add.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Edit.png" />
     <Resource Include="Images\Jobs.png" />
   </ItemGroup>
 
