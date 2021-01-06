@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 
 namespace JobManagerClient
@@ -58,10 +59,15 @@ namespace JobManagerClient
         }
 
         private void DeleteJob()
-        {
+        {   
             if (SelectedJob >= 0)
             {
-                Jobs.Remove(Jobs.ElementAt(SelectedJob));
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show("Biztosan törölni szeretné?", "Törlés", buttons, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    Jobs.Remove(Jobs.ElementAt(SelectedJob));
+                }
             }
         }
 
