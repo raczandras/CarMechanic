@@ -14,7 +14,11 @@ namespace JobManagerClient
     {
         public ICommand AddJobCommand { get; }
 
-        public string SelectedJob { get; set; }
+        public ICommand DeleteJobCommand { get; }
+
+        public ICommand EditJobCommand { get; }
+
+        public int SelectedJob { get; set; }
 
         public string name { get; set; }
 
@@ -32,10 +36,26 @@ namespace JobManagerClient
             Jobs.Insert(0,job);
         }
 
+        private void DeleteJob()
+        {
+            if (SelectedJob >= 0)
+            {
+                Jobs.Remove(Jobs.ElementAt(SelectedJob));
+            }
+        }
+
+        private void EditJob()
+        {
+
+        }
+
+
         public JobManagerClientViewModel()
         {
             Jobs = new ObservableCollection<Job>();
             AddJobCommand = new DelegateCommand(AddJob);
+            DeleteJobCommand = new DelegateCommand(DeleteJob);
+            EditJobCommand = new DelegateCommand(EditJob);
         }
 
     }
