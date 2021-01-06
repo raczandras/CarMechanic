@@ -17,72 +17,78 @@
 
     <Grid x:Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.7*" />
             <RowDefinition Height="15*" />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="menu"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gray" >
+        <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gray" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="Images/Add.png"/>
+            <Label Content="Új Munka Felvétele" Grid.Column="1" Background="Gray"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="25"/>
+        </Grid>
+
+        <Grid x:Name="Header" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Név" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Autó típusa" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Rendszám" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Hiba" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Műveletek" Grid.Column="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
+
+        </Grid>
+
+        <Grid x:Name="New" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding name}" />
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding carType}"/>
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding licensePlate}"/>
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding faliure}"/>
+            <Button Grid.Column="4" x:Name="Add" Content="Mentés" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Width="160" Height="50" Command="{Binding AddJobCommand}" />
+
+        </Grid>
+
+        <Grid x:Name="menu" Margin=" 0 20 0 0"  Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gray" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="15*" />
             </Grid.ColumnDefinitions>
 
             <Image Grid.Column="0" Source="Images/Jobs.png"/>
-            <Label Content="Munkák" Grid.Column="1" Background="Gray"   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="30"/>
+            <Label Content="Felvett Munkák" Grid.Column="1" Background="Gray"   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="25"/>
         </Grid>
 
-        <Grid x:Name="Header" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Dátum" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Név" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Autó típusa" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Rendszám" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Hiba" Grid.Column="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Content="Műveletek" Grid.Column="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
-
-        </Grid>
-
-        <Grid x:Name="New" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-            <Label BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Background="Gray"/>
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding name}" />
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding carType}"/>
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding licensePlate}"/>
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding faliure}"/>
-            <Button Grid.Column="5" x:Name="Add" Content="Hozzáad" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Width="145" Height="50" Command="{Binding AddJobCommand}" />
-
-        </Grid>
-
-        <ListView x:Name="JobListView" Margin="0" Grid.Row="3" ItemsSource="{Binding Jobs}">
+        <ListView x:Name="JobListView" Margin="0" Grid.Row="4" ItemsSource="{Binding Jobs}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="144" Header="Dátum" DisplayMemberBinding="{Binding Date}" />
-                    <GridViewColumn Width="219" Header="Név" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="141" Header="Dátum" DisplayMemberBinding="{Binding Date, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                    <GridViewColumn Width="215" Header="Név" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Width="176" Header="Autó típusa" DisplayMemberBinding="{Binding CarType}"/>
                     <GridViewColumn Width="176" Header="Rendszám" DisplayMemberBinding="{Binding LicensePlate}"/>
                     <GridViewColumn Width="735" Header="Hiba" DisplayMemberBinding="{Binding Failure}"/>
                     <GridViewColumn Width="145" Header="Műveletek">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Szerkesztés" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" />
+                                <Button Content="Szerkesztés" Width="120" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
