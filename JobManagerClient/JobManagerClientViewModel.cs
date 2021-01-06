@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
+using System.ComponentModel;
 
 
 namespace JobManagerClient
 {
-    public class JobManagerClientViewModel
+    public class JobManagerClientViewModel : INotifyPropertyChanged
     {
         public ICommand AddJobCommand { get; }
 
@@ -21,6 +22,7 @@ namespace JobManagerClient
         public int SelectedJob { get; set; }
 
         public string name { get; set; }
+        
 
         public string carType { get; set; }
 
@@ -30,10 +32,29 @@ namespace JobManagerClient
 
         public ObservableCollection<Job> Jobs { get; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void AddJob()
         {
             Job job = new Job(name, carType, licensePlate, faliure);
             Jobs.Insert(0,job);
+            clearTextBoxes();
+
+        }
+
+        private void clearTextBoxes()
+        {
+            name = string.Empty;
+            PropertyChanged(this, new PropertyChangedEventArgs("name"));
+
+            carType = string.Empty;
+            PropertyChanged(this, new PropertyChangedEventArgs("carType"));
+
+            licensePlate = string.Empty;
+            PropertyChanged(this, new PropertyChangedEventArgs("licensePlate"));
+
+            faliure = string.Empty;
+            PropertyChanged(this, new PropertyChangedEventArgs("faliure"));
         }
 
         private void DeleteJob()
@@ -57,6 +78,8 @@ namespace JobManagerClient
             DeleteJobCommand = new DelegateCommand(DeleteJob);
             EditJobCommand = new DelegateCommand(EditJob);
         }
+
+      
 
     }
 }

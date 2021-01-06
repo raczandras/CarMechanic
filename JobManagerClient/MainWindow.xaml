@@ -59,10 +59,10 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding name}" />
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding carType}"/>
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding licensePlate}"/>
-            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding faliure}"/>
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding carType, Mode=TwoWay}"/>
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding licensePlate, Mode=TwoWay}"/>
+            <TextBox BorderThickness="1 1 1 1" BorderBrush="Gray" Grid.Column="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding faliure, Mode=TwoWay}"/>
             <Button Grid.Column="4" x:Name="Add" Content="Mentés" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Width="160" Height="50" Command="{Binding AddJobCommand}" />
 
         </Grid>
