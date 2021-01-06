@@ -79,7 +79,13 @@
                     <GridViewColumn Width="176" Header="Autó típusa" DisplayMemberBinding="{Binding CarType}"/>
                     <GridViewColumn Width="176" Header="Rendszám" DisplayMemberBinding="{Binding LicensePlate}"/>
                     <GridViewColumn Width="735" Header="Hiba" DisplayMemberBinding="{Binding Failure}"/>
-                    <GridViewColumn Width="145" Header="Műveletek" />
+                    <GridViewColumn Width="145" Header="Műveletek">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Szerkesztés" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
 
                 </GridView>
