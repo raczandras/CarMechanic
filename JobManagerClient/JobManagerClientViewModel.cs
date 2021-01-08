@@ -46,26 +46,54 @@ namespace JobManagerClient
         }
 
         private bool checkData()
-        {
-            return checkLicensePlate();
+        {   
+            if( name == null || carType == null || licensePlate == null || faliure == null)
+            {
+                MessageBox.Show("Egyetlen mezőt se hagyjon üresen!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return checkLicensePlate() && checkName();
            
+        }
+
+        private bool checkName()
+        {
+            name = name.Trim();
+            
+            if( !name.Contains(" "))
+            {
+                MessageBox.Show("A névnek tartalmaznia kell legalább egy szóközt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
+            string[] nameList = name.Split(" ");
+            name = "";
+
+            for( int i = 0; i< nameList.Length; i++)
+            {
+                name += char.ToUpper(nameList[i][0]) + nameList[i].Substring(1) + " ";
+            }
+
+            name = name.Trim();
+
+            return true;
         }
 
         private bool checkLicensePlate()
         {
-           
-            if( licensePlate == null || licensePlate.Length != 6 || licensePlate.Length != 7)
+            if( ! (licensePlate.Length == 6 || licensePlate.Length == 7) )
             {
-                MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
 
             if ( licensePlate.Substring(3, 1) != "-")
             {
 
                 licensePlate = licensePlate.Substring(0, 3) + "-" + licensePlate.Substring(3, 3);
             }
+
+            licensePlate = licensePlate.ToUpper();
 
             for (int i = 0; i < 3; i++)
             {
@@ -78,7 +106,7 @@ namespace JobManagerClient
                 }
             }
 
-            licensePlate = licensePlate.ToUpper();
+            
 
             return true;
         }
