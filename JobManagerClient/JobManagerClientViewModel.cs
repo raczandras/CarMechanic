@@ -37,10 +37,50 @@ namespace JobManagerClient
 
         private void AddJob()
         {
-            Job job = new Job(name, carType, licensePlate, faliure);
-            Jobs.Insert(0,job);
-            clearTextBoxes();
+            if( checkData())
+            {
+                Job job = new Job(name, carType, licensePlate, faliure);
+                Jobs.Insert(0, job);
+                clearTextBoxes();
+            }          
+        }
 
+        private bool checkData()
+        {
+            return checkLicensePlate();
+           
+        }
+
+        private bool checkLicensePlate()
+        {
+           
+            if( licensePlate == null || licensePlate.Length != 6 || licensePlate.Length != 7)
+            {
+                MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
+            if ( licensePlate.Substring(3, 1) != "-")
+            {
+
+                licensePlate = licensePlate.Substring(0, 3) + "-" + licensePlate.Substring(3, 3);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                int j = i + 4;
+
+                if (!char.IsLetter(licensePlate, i) || !char.IsDigit(licensePlate, j))
+                {
+                    MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            licensePlate = licensePlate.ToUpper();
+
+            return true;
         }
 
         private void clearTextBoxes()
