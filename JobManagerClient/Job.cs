@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.PlatformUI;
+using System.ComponentModel;
 
 namespace JobManagerClient
 {
-    public class Job
+    public class Job : INotifyPropertyChanged
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; }
+        public DateTime Date { get; set; }
 
         public string Name { get; set; }
+       
 
         public string CarType { get; set; }
 
         public string LicensePlate { get; set; }
 
         public string Failure { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Job(int id, DateTime date, string name, string carType, string licensePlate, string failure)
         {
@@ -38,6 +43,14 @@ namespace JobManagerClient
             CarType = carType;
             LicensePlate = licensePlate;
             Failure = failure;
+        }
+
+        public void Refresh()
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs("name"));
+            PropertyChanged(this, new PropertyChangedEventArgs("CarType"));
+            PropertyChanged(this, new PropertyChangedEventArgs("LicensePlate"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Failure"));
         }
 
 
