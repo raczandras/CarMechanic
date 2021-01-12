@@ -39,7 +39,7 @@ namespace JobManagerClient
         {
             DataValidator dataValidator = new DataValidator();
 
-            if (name == null || carType == null || licensePlate == null || faliure == null)
+            if (name == null || name.Length == 0 || carType == null || carType.Length == 0 || licensePlate == null || licensePlate.Length == 0 || faliure == null || faliure.Length == 0)
             {
                 MessageBox.Show("Egyetlen mezőt se hagyjon üresen!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -53,12 +53,24 @@ namespace JobManagerClient
                 name = dataValidator.correctName(name);
                 licensePlate = dataValidator.correctLicensePlate(licensePlate);
 
-                if (dataValidator.checkData(name, licensePlate))
+                if (dataValidator.checkName(name))
                 {
-                    Job job = new Job(name, carType, licensePlate, faliure);
-                    Jobs.Insert(0, job);
-                    clearTextBoxes();
+                    if( dataValidator.checkLicensePlate(licensePlate))
+                    {
+                        Job job = new Job(name, carType, licensePlate, faliure);
+                        Jobs.Insert(0, job);
+                        clearTextBoxes();
+                    }
+                    else
+                    {
+                        MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és egy keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         
         }
