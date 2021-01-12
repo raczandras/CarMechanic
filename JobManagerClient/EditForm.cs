@@ -77,16 +77,25 @@ namespace JobManagerClient
                     name = dataValidator.correctName(name);
                     licensePlate = dataValidator.correctLicensePlate(licensePlate);
 
-                    if (dataValidator.checkData(name, licensePlate))
+                    if (dataValidator.checkName(name))
                     {
-                        job.Name = name;
-                        job.CarType = carType;
-                        job.LicensePlate = licensePlate;
-                        job.Failure = faliure;
-                        return job;
+                        if (dataValidator.checkLicensePlate(licensePlate))
+                        {
+                            job.Name = name;
+                            job.CarType = carType;
+                            job.LicensePlate = licensePlate;
+                            job.Failure = faliure;
+                            return job;
+                        }
+                        else
+                        {
+                            MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return ShowDialog(job);
+                        }
                     }
                     else
                     {
+                        MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és egy keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return ShowDialog(job);
                     }
                 }
