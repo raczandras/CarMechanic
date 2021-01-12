@@ -29,32 +29,25 @@ namespace JobManagerClient
         {
             if (licensePlate.Substring(3, 1) != "-")
             {
-                licensePlate = licensePlate.Substring(0, 3) + "-" + licensePlate.Substring(3, 3);
+                licensePlate = licensePlate.Substring(0, 3).ToUpper() + "-" + licensePlate.Substring(3, 3);
             }
 
             return licensePlate;
         }
 
-        public bool checkData(string name, string licensePlate)
-        {
-          
-            return checkLicensePlate( licensePlate ) && checkName( name );
-
-        }
-
-        private bool checkName(string name)
+        public bool checkName(string name)
         {
             if (!name.Contains(" "))
             {
-                MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
         }
 
-        private bool checkLicensePlate(string licensePlate)
+        public bool checkLicensePlate(string licensePlate)
         {
+
             licensePlate = licensePlate.ToUpper();
 
             for (int i = 0; i < 3; i++)
@@ -63,7 +56,7 @@ namespace JobManagerClient
 
                 if (!char.IsLetter(licensePlate, i) || !char.IsDigit(licensePlate, j))
                 {
-                    MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                     return false;
                 }
             }
