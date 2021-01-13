@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 using System.ComponentModel;
 using System.Windows.Forms;
+using JobManagerClient.DataProviders;
 
 
 namespace JobManagerClient
@@ -41,6 +42,7 @@ namespace JobManagerClient
             {
                 Job job = new Job(name, carType, licensePlate, faliure);
                 Jobs.Insert(0, job);
+                JobDataProvider.CreateJob(job);
                 clearTextBoxes();
             }          
         }
@@ -135,6 +137,7 @@ namespace JobManagerClient
                 if(result == DialogResult.Yes)
                 {
                     Jobs.Remove(Jobs.ElementAt(SelectedJob));
+                    JobDataProvider.DeleteJob(Jobs.ElementAt(SelectedJob).Id);
                 }
             }
         }
@@ -147,7 +150,7 @@ namespace JobManagerClient
 
         public JobManagerClientViewModel()
         {
-            Jobs = new ObservableCollection<Job>();
+            Jobs = new ObservableCollection<Job>(JobDataProvider.GetJobs());
             AddJobCommand = new DelegateCommand(AddJob);
             DeleteJobCommand = new DelegateCommand(DeleteJob);
             EditJobCommand = new DelegateCommand(EditJob);
