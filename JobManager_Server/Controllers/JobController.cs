@@ -1,27 +1,31 @@
-﻿using JobManager_Server.Repositories;
-using JobManagerClient;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using JobManagerClient;
+using JobManager_Server.Repositories;
+
 
 namespace JobManager_Server.Controllers
 {
-    [Route("api/job")]
+    [Route("api/[controller]")]
     [ApiController]
     public class JobController : ControllerBase
     {
+        // GET: api/<JobController>
         [HttpGet]
         public ActionResult<IEnumerable<Job>> Get()
         {
-            var jobs = JobRepository.GetJobs();
-            return Ok(jobs);
+            return Ok(JobRepository.GetJobs());
         }
 
+        // GET api/<JobController>/5
         [HttpGet("{id}")]
         public ActionResult<Job> Get(int id)
         {
             var jobs = JobRepository.GetJobs();
-            var job = jobs.FirstOrDefault(job => job.Id == id);
+            var job =  jobs.FirstOrDefault(x => x.Id == id);
             if(job != null)
             {
                 return Ok(job);
@@ -30,18 +34,17 @@ namespace JobManager_Server.Controllers
             return NotFound();
         }
 
+        // POST api/<JobController>
         [HttpPost]
         public ActionResult Post([FromBody] Job job)
         {
-            var jobs = JobRepository.GetJobs().ToList();
-
-            job.Id = GetNewId(jobs);
+            List<Job> jobs = (List<Job>)JobRepository.GetJobs();
             jobs.Add(job);
-
             JobRepository.StoreJobs(jobs);
             return Ok();
         }
 
+        // PUT api/<JobController>/5
         [HttpPut]
         public ActionResult Put([FromBody] Job job)
         {
@@ -63,34 +66,19 @@ namespace JobManager_Server.Controllers
             return NotFound();
         }
 
+        // DELETE api/<JobController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var jobs = JobRepository.GetJobs().ToList();
-
-            var jobToDelete = jobs.FirstOrDefault(job => job.Id == id);
-            if (jobToDelete != null)
+            List<Job> jobs = (List<Job>)JobRepository.GetJobs();
+            var jobToDelete = jobs.FirstOrDefault(x => x.Id == id);
+            if(jobToDelete != null)
             {
                 jobs.Remove(jobToDelete);
-
                 JobRepository.StoreJobs(jobs);
                 return Ok();
             }
-
             return NotFound();
-        }
-
-        private int GetNewId(IEnumerable<Job> jobs)
-        {
-            int newId = 0;
-            foreach (var job in jobs)
-            {
-                if (newId < job.Id)
-                {
-                    newId = job.Id;
-                }
-            }
-            return newId + 1;
         }
     }
 }

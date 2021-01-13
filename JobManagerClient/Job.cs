@@ -40,6 +40,8 @@ namespace JobManagerClient
             Failure = failure;
         }
 
-
+        public Job()
+        {
+        }
     }
 }
