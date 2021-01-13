@@ -150,7 +150,8 @@ namespace JobManagerClient
 
         public JobManagerClientViewModel()
         {
-            Jobs = new ObservableCollection<Job>(JobDataProvider.GetJobs());
+            var temp = JobDataProvider.GetJobs();
+            Jobs = new ObservableCollection<Job>(temp);
             AddJobCommand = new DelegateCommand(AddJob);
             DeleteJobCommand = new DelegateCommand(DeleteJob);
             EditJobCommand = new DelegateCommand(EditJob);

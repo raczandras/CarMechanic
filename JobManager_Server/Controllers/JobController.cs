@@ -39,6 +39,7 @@ namespace JobManager_Server.Controllers
         public ActionResult Post([FromBody] Job job)
         {
             List<Job> jobs = (List<Job>)JobRepository.GetJobs();
+            job.Id = GetewId(jobs);
             jobs.Add(job);
             JobRepository.StoreJobs(jobs);
             return Ok();
@@ -79,6 +80,20 @@ namespace JobManager_Server.Controllers
                 return Ok();
             }
             return NotFound();
+        }
+
+        private int GetewId(IEnumerable<Job> jobs)
+        {
+            int newId = 0;
+            foreach(var job in jobs)
+            {
+                if(newId < job.Id)
+                {
+                    newId = job.Id;
+                }
+            }
+
+            return newId + 1;
         }
     }
 }
