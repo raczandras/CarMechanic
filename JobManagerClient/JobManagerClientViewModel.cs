@@ -136,8 +136,8 @@ namespace JobManagerClient
                 DialogResult result = MessageBox.Show("Biztosan törölni szeretné?", "Törlés", buttons, MessageBoxIcon.Question);
                 if(result == DialogResult.Yes)
                 {
-                    Jobs.Remove(Jobs.ElementAt(SelectedJob));
                     JobDataProvider.DeleteJob(Jobs.ElementAt(SelectedJob).Id);
+                    Jobs.Remove(Jobs.ElementAt(SelectedJob));
                 }
             }
         }
