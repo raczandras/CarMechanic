@@ -55,6 +55,7 @@ namespace JobManagerClient
             PropertyChanged(this, new PropertyChangedEventArgs("CarType"));
             PropertyChanged(this, new PropertyChangedEventArgs("LicensePlate"));
             PropertyChanged(this, new PropertyChangedEventArgs("Failure"));
+            PropertyChanged(this, new PropertyChangedEventArgs("State"));
         }
 
 
