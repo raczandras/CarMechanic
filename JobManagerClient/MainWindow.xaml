@@ -86,7 +86,8 @@
                     <GridViewColumn Width="215" Header="Név" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Width="176" Header="Autó típusa" DisplayMemberBinding="{Binding CarType}"/>
                     <GridViewColumn Width="176" Header="Rendszám" DisplayMemberBinding="{Binding LicensePlate}"/>
-                    <GridViewColumn Width="800" Header="Hiba" DisplayMemberBinding="{Binding Failure}"/>
+                    <GridViewColumn Width="750" Header="Hiba" DisplayMemberBinding="{Binding Failure}"/>
+                    <GridViewColumn Width="120" Header="Státusz" DisplayMemberBinding="{Binding State}"/>
                     
                 </GridView>
             </ListView.View>
