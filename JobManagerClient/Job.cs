@@ -23,9 +23,11 @@ namespace JobManagerClient
 
         public string Failure { get; set; }
 
+        public string State { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Job(int id, DateTime date, string name, string carType, string licensePlate, string failure)
+        public Job(int id, DateTime date, string name, string carType, string licensePlate, string failure, string state)
         {
             Id = id;
             Date = date;
@@ -33,6 +35,7 @@ namespace JobManagerClient
             CarType = carType;
             LicensePlate = licensePlate;
             Failure = failure;
+            State = state;
         }
 
         public Job(string name, string carType, string licensePlate, string failure)
@@ -43,6 +46,7 @@ namespace JobManagerClient
             CarType = carType;
             LicensePlate = licensePlate;
             Failure = failure;
+            State = "Elvégzésre vár";
         }
 
         public void Refresh()
