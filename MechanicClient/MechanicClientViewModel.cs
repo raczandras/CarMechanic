@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace MechanicClient
 {
-    public class MechanicClientViewModel : INotifyPropertyChanged
+    public class MechanicClientViewModel
     {
 
         public ICommand RecordedJob { get; }
