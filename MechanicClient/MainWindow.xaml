@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MechanicClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Autószerelő kliens"
+        Height="900"
+        Width="1600"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <local:MechanicClientViewModel />
+    </Window.DataContext>
 
+    <Grid x:Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="menu"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gray" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="Images/Jobs.png"/>
+            <Label Content="Felvett Munkák" Grid.Column="1" Background="Gray"   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="25"/>
+        </Grid>
+
+        <ListView x:Name="JobListView" Grid.Row="1" SelectedIndex="{Binding SelectedJob}" ItemsSource="{Binding Jobs}">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Width="141" Header="Dátum" DisplayMemberBinding="{Binding Date, StringFormat='yyyy-MM-dd HH:mm:ss'}">
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="215" Header="Név" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="176" Header="Autó típusa" DisplayMemberBinding="{Binding CarType}"/>
+                    <GridViewColumn Width="176" Header="Rendszám" DisplayMemberBinding="{Binding LicensePlate}"/>
+                    <GridViewColumn Width="750" Header="Hiba" DisplayMemberBinding="{Binding Failure}"/>
+                    <GridViewColumn Width="120" Header="Státusz" DisplayMemberBinding="{Binding State}"/>
+
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Státusz: Elvégzésre vár" Command="{Binding RecordedJob}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Wait.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Státusz: Elvégzés alatt" Command="{Binding WorkingOnJob}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Working.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Státusz: Elkészült" Command="{Binding CompletedJob}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Done.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
     </Grid>
 </Window>
