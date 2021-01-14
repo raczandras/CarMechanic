@@ -13,13 +13,12 @@ namespace MechanicClient
 {
     public class MechanicClientViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        public ICommand RecordedJobCommand { get; }
+        public ICommand RecordedJob { get; }
 
-        public ICommand WorkingOnJobCommand { get; }
+        public ICommand WorkingOnJob { get; }
 
-        public ICommand CompletedJobCommand { get; }
+        public ICommand CompletedJob { get; }
 
         public int SelectedJob { get; set; }
 
@@ -28,27 +27,44 @@ namespace MechanicClient
         public MechanicClientViewModel()
         {
             Jobs = new ObservableCollection<Job>();
-            RecordedJobCommand = new DelegateCommand(SetToRecorded);
-            WorkingOnJobCommand = new DelegateCommand(SetToWorkingOn);
-            CompletedJobCommand = new DelegateCommand(SetToCompleted);
+            Job job = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
+            Job job2 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
+            Job job3 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
+            Job job4 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
+            Job job5 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
+
+            Jobs.Add(job);
+            Jobs.Add(job2);
+            Jobs.Add(job3);
+            Jobs.Add(job4);
+            Jobs.Add(job5);
+
+
+            RecordedJob = new DelegateCommand(SetToRecorded);
+            WorkingOnJob = new DelegateCommand(SetToWorkingOn);
+            CompletedJob = new DelegateCommand(SetToCompleted);
         }
 
         private void SetToCompleted(object obj)
         {
             int selected = SelectedJob;
             Jobs[selected].State = "Elkészült";
+            Jobs[selected].Refresh();
+          
         }
 
         private void SetToWorkingOn(object obj)
         {
             int selected = SelectedJob;
             Jobs[selected].State = "Elvégzés alatt áll";
+            Jobs[selected].Refresh();
         }
 
         private void SetToRecorded(object obj)
         {
             int selected = SelectedJob;
             Jobs[selected].State = "Elvégzésre vár";
+            Jobs[selected].Refresh();
         }
     }
 }
