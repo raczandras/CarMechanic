@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 using System.ComponentModel;
 using System.Windows.Forms;
+using JobManagerClient.DataProviders;
 
 
 namespace JobManagerClient
@@ -59,6 +60,7 @@ namespace JobManagerClient
                     {
                         Job job = new Job(name, carType, licensePlate, faliure);
                         Jobs.Insert(0, job);
+                        JobDataProvider.CreateJob(job);
                         clearTextBoxes();
                     }
                     else
@@ -71,8 +73,7 @@ namespace JobManagerClient
                     MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és egy keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
-            }
-        
+            }        
         }
 
         private void clearTextBoxes()
@@ -98,6 +99,7 @@ namespace JobManagerClient
                 DialogResult result = MessageBox.Show("Biztosan törölni szeretné?", "Törlés", buttons, MessageBoxIcon.Question);
                 if(result == DialogResult.Yes)
                 {
+                    JobDataProvider.DeleteJob(Jobs.ElementAt(SelectedJob).Id);
                     Jobs.Remove(Jobs.ElementAt(SelectedJob));
                 }
             }
@@ -116,7 +118,8 @@ namespace JobManagerClient
 
         public JobManagerClientViewModel()
         {
-            Jobs = new ObservableCollection<Job>();
+            var temp = JobDataProvider.GetJobs();
+            Jobs = new ObservableCollection<Job>(temp);
             AddJobCommand = new DelegateCommand(AddJob);
             DeleteJobCommand = new DelegateCommand(DeleteJob);
             EditJobCommand = new DelegateCommand(EditJob);

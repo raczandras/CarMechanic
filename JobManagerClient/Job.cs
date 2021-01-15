@@ -58,6 +58,8 @@ namespace JobManagerClient
             PropertyChanged(this, new PropertyChangedEventArgs("State"));
         }
 
-
+        public Job()
+        {
+        }
     }
 }
