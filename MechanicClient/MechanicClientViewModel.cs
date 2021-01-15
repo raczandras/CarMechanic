@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 using System.ComponentModel;
 using System.Windows.Forms;
+using MechanicClient.DataProviders;
 
 namespace MechanicClient
 {
@@ -26,20 +27,7 @@ namespace MechanicClient
 
         public MechanicClientViewModel()
         {
-            Jobs = new ObservableCollection<Job>();
-            Job job = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
-            Job job2 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
-            Job job3 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
-            Job job4 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
-            Job job5 = new Job(0, DateTime.Now, "Rácz András", "Suzuki swift", "FFB-550", "Motorhiba", "Elvégzésre vár");
-
-            Jobs.Add(job);
-            Jobs.Add(job2);
-            Jobs.Add(job3);
-            Jobs.Add(job4);
-            Jobs.Add(job5);
-
-
+            Jobs = new ObservableCollection<Job>(JobDataProvider.GetJobs());
             RecordedJob = new DelegateCommand(SetToRecorded);
             WorkingOnJob = new DelegateCommand(SetToWorkingOn);
             CompletedJob = new DelegateCommand(SetToCompleted);
@@ -50,7 +38,7 @@ namespace MechanicClient
             int selected = SelectedJob;
             Jobs[selected].State = "Elkészült";
             Jobs[selected].Refresh();
-          
+            JobDataProvider.UpdateJob(Jobs[selected]);
         }
 
         private void SetToWorkingOn(object obj)
@@ -58,6 +46,7 @@ namespace MechanicClient
             int selected = SelectedJob;
             Jobs[selected].State = "Elvégzés alatt áll";
             Jobs[selected].Refresh();
+            JobDataProvider.UpdateJob(Jobs[selected]);
         }
 
         private void SetToRecorded(object obj)
@@ -65,6 +54,7 @@ namespace MechanicClient
             int selected = SelectedJob;
             Jobs[selected].State = "Elvégzésre vár";
             Jobs[selected].Refresh();
+            JobDataProvider.UpdateJob(Jobs[selected]);
         }
     }
 }
