@@ -11,7 +11,7 @@ namespace JobManager_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobController : ControllerBase
+    public class JobManagerController : ControllerBase
     {
         // GET: api/<JobController>
         [HttpGet]
