@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JobManagerClient\JobManagerClient.csproj" />
+    <ProjectReference Include="..\MechanicClient\MechanicClient.csproj" />
   </ItemGroup>
 
 
