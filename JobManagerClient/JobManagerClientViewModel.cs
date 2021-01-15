@@ -38,79 +38,42 @@ namespace JobManagerClient
 
         private void AddJob()
         {
-            if( checkData())
-            {
-                Job job = new Job(name, carType, licensePlate, faliure);
-                Jobs.Insert(0, job);
-                JobDataProvider.CreateJob(job);
-                clearTextBoxes();
-            }          
-        }
+            DataValidator dataValidator = new DataValidator();
 
-        private bool checkData()
-        {   
-            if( name == null || carType == null || licensePlate == null || faliure == null)
+            if (name == null || name.Length == 0 || carType == null || carType.Length == 0 || licensePlate == null || licensePlate.Length == 0 || faliure == null || faliure.Length == 0)
             {
                 MessageBox.Show("Egyetlen mezőt se hagyjon üresen!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return checkLicensePlate() && checkName();
-           
-        }
-
-        private bool checkName()
-        {
-            name = name.Trim();
-            
-            if( !name.Contains(" "))
-            {
-                MessageBox.Show("A névnek tartalmaznia kell legalább egy szóközt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            
-            string[] nameList = name.Split(" ");
-            name = "";
-
-            for( int i = 0; i< nameList.Length; i++)
-            {
-                name += char.ToUpper(nameList[i][0]) + nameList[i].Substring(1) + " ";
             }
 
-            name = name.Trim();
-
-            return true;
-        }
-
-        private bool checkLicensePlate()
-        {
-            if( ! (licensePlate.Length == 6 || licensePlate.Length == 7) )
+            else if (!(licensePlate.Length == 6 || licensePlate.Length == 7))
             {
                 MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
-
-            if ( licensePlate.Substring(3, 1) != "-")
+            else
             {
+                name = dataValidator.correctName(name);
+                licensePlate = dataValidator.correctLicensePlate(licensePlate);
 
-                licensePlate = licensePlate.Substring(0, 3) + "-" + licensePlate.Substring(3, 3);
-            }
-
-            licensePlate = licensePlate.ToUpper();
-
-            for (int i = 0; i < 3; i++)
-            {
-                int j = i + 4;
-
-                if (!char.IsLetter(licensePlate, i) || !char.IsDigit(licensePlate, j))
+                if (dataValidator.checkName(name))
                 {
-                    MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
+                    if( dataValidator.checkLicensePlate(licensePlate))
+                    {
+                        Job job = new Job(name, carType, licensePlate, faliure);
+                        Jobs.Insert(0, job);
+                        JobDataProvider.CreateJob(job);
+                        clearTextBoxes();
+                    }
+                    else
+                    {
+                        MessageBox.Show("A rendszám formátuma: AAA000 vagy AAA-000 lehet", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            }
-
-            
-
-            return true;
+                else
+                {
+                    MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és egy keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }        
         }
 
         private void clearTextBoxes()
@@ -144,9 +107,14 @@ namespace JobManagerClient
 
         private void EditJob()
         {
-
+            if( SelectedJob >= 0)
+            {
+                int selected = SelectedJob;
+                Jobs[selected] = EditForm.ShowDialog(Jobs[SelectedJob]);
+                Jobs[selected].Refresh();
+            }
+            
         }
-
 
         public JobManagerClientViewModel()
         {

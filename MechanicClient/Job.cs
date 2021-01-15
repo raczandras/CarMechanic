@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.PlatformUI;
 using System.ComponentModel;
 
-namespace JobManagerClient
+namespace MechanicClient
 {
     public class Job : INotifyPropertyChanged
     {
@@ -15,7 +12,7 @@ namespace JobManagerClient
         public DateTime Date { get; set; }
 
         public string Name { get; set; }
-       
+
 
         public string CarType { get; set; }
 
@@ -38,28 +35,10 @@ namespace JobManagerClient
             State = state;
         }
 
-        public Job(string name, string carType, string licensePlate, string failure)
-        {
-            Id = 0;
-            Date = DateTime.Now;
-            Name = name;
-            CarType = carType;
-            LicensePlate = licensePlate;
-            Failure = failure;
-            State = "Elvégzésre vár";
-        }
-
         public void Refresh()
         {
-            PropertyChanged(this, new PropertyChangedEventArgs("name"));
-            PropertyChanged(this, new PropertyChangedEventArgs("CarType"));
-            PropertyChanged(this, new PropertyChangedEventArgs("LicensePlate"));
-            PropertyChanged(this, new PropertyChangedEventArgs("Failure"));
             PropertyChanged(this, new PropertyChangedEventArgs("State"));
-        }
-
-        public Job()
-        {
+            
         }
     }
 }
