@@ -8,7 +8,7 @@ namespace JobManagerClient.DataProviders
 {
     class JobDataProvider
     {
-        private const string _url = "http://localhost:49809/api/job";
+        private const string _url = "http://localhost:5000/api/job";
 
         public static IEnumerable<Job> GetJobs()
         {
