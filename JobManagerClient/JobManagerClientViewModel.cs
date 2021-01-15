@@ -24,7 +24,7 @@ namespace JobManagerClient
         public int SelectedJob { get; set; }
 
         public string name { get; set; }
-        
+
 
         public string carType { get; set; }
 
@@ -32,7 +32,7 @@ namespace JobManagerClient
 
         public string faliure { get; set; }
 
-        public ObservableCollection<Job> Jobs { get; }
+        public ObservableCollection<Job> Jobs { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,11 +56,13 @@ namespace JobManagerClient
 
                 if (dataValidator.checkName(name))
                 {
-                    if( dataValidator.checkLicensePlate(licensePlate))
+                    if (dataValidator.checkLicensePlate(licensePlate))
                     {
                         Job job = new Job(name, carType, licensePlate, faliure);
-                        Jobs.Insert(0, job);
                         JobDataProvider.CreateJob(job);
+                        var temp = JobDataProvider.GetJobs();
+                        Jobs = new ObservableCollection<Job>(temp.Reverse());
+                        PropertyChanged(this, new PropertyChangedEventArgs("Jobs"));
                         clearTextBoxes();
                     }
                     else
@@ -72,8 +74,8 @@ namespace JobManagerClient
                 {
                     MessageBox.Show("A névnek tartalmaznia kell legalább egy vezetéknevet és egy keresztnevet!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
-            }        
+
+            }
         }
 
         private void clearTextBoxes()
@@ -92,12 +94,12 @@ namespace JobManagerClient
         }
 
         private void DeleteJob()
-        {   
+        {
             if (SelectedJob >= 0)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show("Biztosan törölni szeretné?", "Törlés", buttons, MessageBoxIcon.Question);
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     JobDataProvider.DeleteJob(Jobs.ElementAt(SelectedJob).Id);
                     Jobs.Remove(Jobs.ElementAt(SelectedJob));
@@ -107,25 +109,25 @@ namespace JobManagerClient
 
         private void EditJob()
         {
-            if( SelectedJob >= 0)
+            if (SelectedJob >= 0)
             {
                 int selected = SelectedJob;
                 Jobs[selected] = EditForm.ShowDialog(Jobs[SelectedJob]);
                 Jobs[selected].Refresh();
             }
-            
+
         }
 
         public JobManagerClientViewModel()
         {
             var temp = JobDataProvider.GetJobs();
-            Jobs = new ObservableCollection<Job>(temp);
+            Jobs = new ObservableCollection<Job>(temp.Reverse());
             AddJobCommand = new DelegateCommand(AddJob);
             DeleteJobCommand = new DelegateCommand(DeleteJob);
             EditJobCommand = new DelegateCommand(EditJob);
         }
 
-      
+
 
     }
 }
