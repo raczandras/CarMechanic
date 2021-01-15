@@ -35,6 +35,10 @@ namespace MechanicClient
             State = state;
         }
 
+        public Job()
+        {
+        }
+
         public void Refresh()
         {
             PropertyChanged(this, new PropertyChangedEventArgs("State"));
