@@ -114,6 +114,7 @@ namespace JobManagerClient
                 int selected = SelectedJob;
                 Jobs[selected] = EditForm.ShowDialog(Jobs[SelectedJob]);
                 Jobs[selected].Refresh();
+                JobDataProvider.UpdateJob(Jobs[selected]);
             }
 
         }
