@@ -5,7 +5,7 @@ using JobManagerClient;
 
 namespace JobManager_Server.Repositories
 {
-    public static class JobRepository
+    public static class JobManagerRepository
     {
         private const string filename = "Jobs.json";
 
