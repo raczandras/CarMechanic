@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
-using JobManagerClient;
+using System.Threading.Tasks;
+using MechanicClient;
 
 namespace JobManager_Server.Repositories
 {
-    public static class JobRepository
+    public class MechanicClientRepository
     {
         private const string filename = "Jobs.json";
 
