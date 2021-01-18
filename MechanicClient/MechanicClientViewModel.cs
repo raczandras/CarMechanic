@@ -27,7 +27,7 @@ namespace MechanicClient
 
         public MechanicClientViewModel()
         {
-            Jobs = new ObservableCollection<Job>(JobDataProvider.GetJobs());
+            Jobs = new ObservableCollection<Job>(JobDataProvider.GetJobs().Reverse());
             RecordedJob = new DelegateCommand(SetToRecorded);
             WorkingOnJob = new DelegateCommand(SetToWorkingOn);
             CompletedJob = new DelegateCommand(SetToCompleted);
